@@ -33,28 +33,39 @@ $(document).ready(function() {
     }
   };
 
+  //controller
+  var controller = {
+    getCatName: function(i) {
+      return data[i].catName;
+    }, getCatImgExt: function(i) {
+      return "img/" + data[i].catImgExt;
+    }, getCatIndex: function(i) {
+      return data[i].catIndex;
+    }, getCatCounter: function(i) {
+      return data[i-1].counter;
+    }, incrementCatCounter: function(i) {
+      data[i-1].counter += 1;
+    }
+  };
+
   //creating sidebars
   for (var i = 0; i < 5; i++) {
-    $('#sidebar').append('<h1>' + data[i].catName + '</h1>');
-    var img_extension = "img/" + data[i].catImgExt;
-    var img_id = data[i].catIndex;
-    $('#sidebar').append('<img src=' + '"' + img_extension + '"' + ' class="clickable" id=' + '"' + img_id + '"' + '>');
+    $('#sidebar').append('<h1>' + controller.getCatName(i) + '</h1>');
+    $('#sidebar').append('<img src=' + '"' + controller.getCatImgExt(i) + '"' + ' class="clickable" id=' + '"' + controller.getCatIndex(i) + '"' + '>');
   }
 
   //creating playground adding pic and counter
   $('.clickable').click(function(e) {
     var cat_id = Number(e.currentTarget.id);
-    var img_extension = "img/" + data[cat_id-1].catImgExt;
-
-    $('#playground').html('<img src=' + '"' + img_extension + '"' + '>');
-    $('#counter_place').html('<p>' + data[cat_id-1].counter + '</p>');
+    $('#playground').html('<img src=' + '"' + controller.getCatImgExt(cat_id-1) + '"' + '>');
+    $('#counter_place').html('<p>' + controller.getCatCounter(cat_id) + '</p>');
   });
 
   //counters increment and display
   $('.clickable').click(function(e) {
     var cat_id = Number(e.currentTarget.id);
-    data[cat_id-1].counter += 1;
-    $('#counter_place').html('<p>'+data[cat_id-1].counter+'</p>');
+    controller.incrementCatCounter(cat_id);
+    $('#counter_place').html('<p>'+controller.getCatCounter(cat_id)+'</p>');
   });
 
 });
