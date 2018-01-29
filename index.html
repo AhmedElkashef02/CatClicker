@@ -6,11 +6,17 @@
 </head>
 <body>
     <ul id="cat-list"></ul>
-    <div id="cat">
+    <div>
 
-        <h2 id="cat-name"></h2>
-        <div id="cat-count"></div>
-        <img id="cat-img" src="" alt="cute cat">
+        <h2 data-bind="text: currentCat().name"></h2>
+        <h3 data-bind="text: currentCat().level"></h3>
+        <div data-bind="text: currentCat().clickCount"></div>
+        <img alt="cute cat" data-bind="click: incrementCounter, attr: {src: currentCat().imgSrc}">
+
+        <h3>NickNames:</h3>
+        <ul data-bind="foreach: currentCat().nickNames">
+          <li data-bind="text: nickName"></li>
+        </ul>
 
     </div>
     <script src="js/lib/knockout-3.2.0.js"></script>
